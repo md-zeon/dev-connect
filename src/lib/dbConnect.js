@@ -1,6 +1,13 @@
 import clientPromise from "./mongodb";
 import { ServerApiVersion } from "mongodb";
 
+export const collectionNamesObj = {
+  users: "users",
+  projects: "projects",
+  applications: "applications",
+};
+
+
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
