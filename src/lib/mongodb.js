@@ -3,9 +3,10 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 const uri = process.env.MONGODB_URI;
 
 if (!uri) {
-	throw new Error("Please add your Mongo URI to .env.local");
+	throw new Error("Please define MONGODB_URI in your .env.local");
 }
-// Define options for the MongoDB client
+
+// MongoDB client options
 const options = {
 	serverApi: {
 		version: ServerApiVersion.v1,
@@ -17,6 +18,7 @@ const options = {
 let client;
 let clientPromise;
 
+// Use global variable in development to avoid re-instantiating on hot reload
 if (process.env.NODE_ENV === "development") {
 	if (!global._mongoClientPromise) {
 		client = new MongoClient(uri, options);

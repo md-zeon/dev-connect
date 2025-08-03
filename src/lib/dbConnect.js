@@ -1,29 +1,19 @@
 import clientPromise from "./mongodb";
-import { ServerApiVersion } from "mongodb";
 
+// Centralized collection names
 export const collectionNamesObj = {
-  users: "users",
-  projects: "projects",
-  applications: "applications",
+	users: "users",
+	projects: "projects",
+	applications: "applications",
 };
 
-
-const options = {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-};
-
+/**
+ * Connect to the database and return the requested collection
+ * @param {string} collectionName - One of the values from collectionNamesObj
+ */
 export default async function dbConnect(collectionName) {
-  // Wait for the client connection
-  const client = await clientPromise;
+	const client = await clientPromise;
+	const db = client.db(process.env.DB_NAME);
 
-  const db = client.db(process.env.DB_NAME);
-
-  // Optionally apply the server API options if needed here
-
-  // Return the collection you want
-  return db.collection(collectionName);
+	return db.collection(collectionName);
 }
